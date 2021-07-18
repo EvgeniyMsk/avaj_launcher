@@ -1,9 +1,10 @@
-package com.school21.Task;
+package com.school21;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Tower {
-    private List<Flyable> observers;
+public abstract class Tower {
+    private List<Flyable> observers = new ArrayList<>();
 
     public void register(Flyable flyable) {
         observers.add(flyable);
@@ -16,7 +17,7 @@ public class Tower {
     }
 
     protected void conditionsChanged() {
-        for (Flyable flyable : observers)
-            flyable.updateConditions();
+        for (int i = 0; i < observers.size(); i++)
+            observers.get(i).updateConditions();
     }
 }

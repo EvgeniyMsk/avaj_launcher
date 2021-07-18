@@ -1,9 +1,9 @@
-package com.school21.Task;
+package com.school21;
 
-public class Baloon extends Aircraft implements Flyable {
+public class JetPlane extends Aircraft implements Flyable {
     private WeatherTower weatherTower;
 
-    public Baloon(String name, Coordinates coordinates) {
+    public JetPlane(String name, Coordinates coordinates) {
         super(name, coordinates);
         weatherTower = null;
     }
@@ -12,33 +12,33 @@ public class Baloon extends Aircraft implements Flyable {
     public void updateConditions() {
         String weather = this.weatherTower.getWeather(this.coordinates);
         String[] messages = {
-                this + ": Let's enjoy the good weather and take some pics.",
-                this + ": Damn you rain! You messed up my baloon.",
+                this + ": It's good weather to jump with parachute.",
+                this + ": It's raining. Better watch out for lightings.",
                 this + ": Fucking fog.",
-                this + ": It's snowing. We're gonna crash."
+                this + ": OMG! Winter is coming!"
         };
         switch (weather) {
             case "SUN" : {
                 this.coordinates = new Coordinates(
-                        this.coordinates.getLongitude() + 2,
-                        this.coordinates.getLatitude(),
-                        this.coordinates.getHeight() + 4);
+                        this.coordinates.getLongitude(),
+                        this.coordinates.getLatitude() + 10,
+                        this.coordinates.getHeight() - 2);
                 System.out.println(messages[0]);
                 break;
             }
             case "RAIN" : {
                 this.coordinates = new Coordinates(
                         this.coordinates.getLongitude(),
-                        this.coordinates.getLatitude(),
-                        this.coordinates.getHeight() - 5);
+                        this.coordinates.getLatitude() + 5,
+                        this.coordinates.getHeight());
                 System.out.println(messages[1]);
                 break;
             }
             case "FOG" : {
                 this.coordinates = new Coordinates(
                         this.coordinates.getLongitude(),
-                        this.coordinates.getLatitude(),
-                        this.coordinates.getHeight() - 3);
+                        this.coordinates.getLatitude() + 1,
+                        this.coordinates.getHeight());
                 System.out.println(messages[2]);
                 break;
             }
@@ -46,13 +46,13 @@ public class Baloon extends Aircraft implements Flyable {
                 this.coordinates = new Coordinates(
                         this.coordinates.getLongitude(),
                         this.coordinates.getLatitude(),
-                        this.coordinates.getHeight() - 15);
+                        this.coordinates.getHeight() - 7);
                 System.out.println(messages[3]);
                 break;
             }
         }
         if (this.coordinates.getHeight() <= 0) {
-            System.out.println(this + "landing.");
+            System.out.println(this + " landing.");
             this.weatherTower.unregister(this);
             this.weatherTower = null;
         }
@@ -66,6 +66,6 @@ public class Baloon extends Aircraft implements Flyable {
 
     @Override
     public String toString() {
-        return "Baloon#" + this.name + "(" + this.id + ")";
+        return "JetPlane#" + this.name + "(" + this.id + ")";
     }
 }

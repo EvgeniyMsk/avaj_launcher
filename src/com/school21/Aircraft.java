@@ -1,4 +1,4 @@
-package com.school21.Task;
+package com.school21;
 
 public class Aircraft {
     protected long id;

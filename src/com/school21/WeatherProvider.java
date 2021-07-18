@@ -1,4 +1,4 @@
-package com.school21.Task;
+package com.school21;
 
 public class WeatherProvider {
     private static WeatherProvider weatherProvider;
@@ -8,13 +8,13 @@ public class WeatherProvider {
     }
 
     public static WeatherProvider getProvider() {
-        if (weatherProvider != null) {
+        if (weatherProvider == null) {
             weatherProvider = new WeatherProvider();
         }
         return weatherProvider;
     }
 
     public String getCurrentWeather(Coordinates coordinates) {
-        return weather[coordinates.getLongitude() + coordinates.getLatitude() + coordinates.getHeight() % 4];
+        return weather[((coordinates.getLongitude() > 10) ? 1 : 0) + ((coordinates.getLatitude() > 20) ? 1 : 0) + ((coordinates.getHeight() > 5) ? 1 : 0)];
     }
 }

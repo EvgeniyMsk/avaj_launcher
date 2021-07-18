@@ -1,4 +1,4 @@
-package com.school21.Task;
+package com.school21;
 
 public class AircraftFactory {
     public Flyable newAircraft(String type, String name, int longitude, int latitude, int height) {

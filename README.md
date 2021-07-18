@@ -1,6 +1,7 @@
 # avaj_launcher
 
 Первичная работа с паттернами Observer, Singleton, Factory Method
+
 Подробнее о них:
 https://refactoring.guru/ru/design-patterns/observer
 

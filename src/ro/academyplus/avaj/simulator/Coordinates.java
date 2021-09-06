@@ -1,4 +1,4 @@
-package com.school21;
+package ro.academyplus.avaj.simulator;
 
 public class Coordinates {
     private int longitude;

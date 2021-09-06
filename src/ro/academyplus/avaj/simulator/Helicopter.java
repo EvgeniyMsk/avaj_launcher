@@ -1,9 +1,10 @@
-package com.school21;
+package ro.academyplus.avaj.simulator;
+import static ro.academyplus.avaj.simulator.Simulator.simulatorLogger;
 
-public class JetPlane extends Aircraft implements Flyable {
+public class Helicopter extends Aircraft implements Flyable{
     private WeatherTower weatherTower;
 
-    public JetPlane(String name, Coordinates coordinates) {
+    public Helicopter(String name, Coordinates coordinates) {
         super(name, coordinates);
         weatherTower = null;
     }
@@ -12,47 +13,47 @@ public class JetPlane extends Aircraft implements Flyable {
     public void updateConditions() {
         String weather = this.weatherTower.getWeather(this.coordinates);
         String[] messages = {
-                this + ": It's good weather to jump with parachute.",
-                this + ": It's raining. Better watch out for lightings.",
+                this + ": This is hot.",
+                this + ": Damn you rain! You messed up my baloon.",
                 this + ": Fucking fog.",
-                this + ": OMG! Winter is coming!"
+                this + ": My rotor is going to freeze!"
         };
         switch (weather) {
             case "SUN" : {
                 this.coordinates = new Coordinates(
-                        this.coordinates.getLongitude(),
-                        this.coordinates.getLatitude() + 10,
-                        this.coordinates.getHeight() - 2);
-                System.out.println(messages[0]);
+                        this.coordinates.getLongitude() + 10,
+                        this.coordinates.getLatitude(),
+                        this.coordinates.getHeight() + 2);
+                simulatorLogger.log(messages[0]);
                 break;
             }
             case "RAIN" : {
                 this.coordinates = new Coordinates(
-                        this.coordinates.getLongitude(),
-                        this.coordinates.getLatitude() + 5,
+                        this.coordinates.getLongitude() + 5,
+                        this.coordinates.getLatitude(),
                         this.coordinates.getHeight());
-                System.out.println(messages[1]);
+                simulatorLogger.log(messages[1]);
                 break;
             }
             case "FOG" : {
                 this.coordinates = new Coordinates(
-                        this.coordinates.getLongitude(),
-                        this.coordinates.getLatitude() + 1,
+                        this.coordinates.getLongitude() + 1,
+                        this.coordinates.getLatitude(),
                         this.coordinates.getHeight());
-                System.out.println(messages[2]);
+                simulatorLogger.log(messages[2]);
                 break;
             }
             case "SNOW" : {
                 this.coordinates = new Coordinates(
                         this.coordinates.getLongitude(),
                         this.coordinates.getLatitude(),
-                        this.coordinates.getHeight() - 7);
-                System.out.println(messages[3]);
+                        this.coordinates.getHeight() - 12);
+                simulatorLogger.log(messages[3]);
                 break;
             }
         }
         if (this.coordinates.getHeight() <= 0) {
-            System.out.println(this + " landing.");
+            simulatorLogger.log(this + " landing.");
             this.weatherTower.unregister(this);
             this.weatherTower = null;
         }
@@ -66,6 +67,6 @@ public class JetPlane extends Aircraft implements Flyable {
 
     @Override
     public String toString() {
-        return "JetPlane#" + this.name + "(" + this.id + ")";
+        return "Helicopter#" + this.name + "(" + this.id + ")";
     }
 }

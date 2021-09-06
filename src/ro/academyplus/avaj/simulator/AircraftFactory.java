@@ -1,7 +1,9 @@
-package com.school21;
+package ro.academyplus.avaj.simulator;
+
+import ro.academyplus.avaj.simulator.exceptions.AircraftFactoryException;
 
 public class AircraftFactory {
-    public Flyable newAircraft(String type, String name, int longitude, int latitude, int height) {
+    public Flyable newAircraft(String type, String name, int longitude, int latitude, int height) throws AircraftFactoryException {
         switch (type) {
             case "Helicopter":
             {
@@ -15,7 +17,7 @@ public class AircraftFactory {
             {
                 return new JetPlane(name, new Coordinates(longitude, latitude, height));
             }
-            default: return null;
+            default: throw new AircraftFactoryException("Ошибка в названии Aircraft!");
         }
     }
 }

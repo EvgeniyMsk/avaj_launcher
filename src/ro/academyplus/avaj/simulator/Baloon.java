@@ -1,4 +1,7 @@
-package com.school21;
+package ro.academyplus.avaj.simulator;
+
+import ro.academyplus.avaj.simulator.exceptions.WeatherException;
+import static ro.academyplus.avaj.simulator.Simulator.simulatorLogger;
 
 public class Baloon extends Aircraft implements Flyable {
     private WeatherTower weatherTower;
@@ -9,7 +12,7 @@ public class Baloon extends Aircraft implements Flyable {
     }
 
     @Override
-    public void updateConditions() {
+    public void updateConditions() throws WeatherException {
         String weather = this.weatherTower.getWeather(this.coordinates);
         String[] messages = {
                 this + ": Let's enjoy the good weather and take some pics.",
@@ -23,7 +26,7 @@ public class Baloon extends Aircraft implements Flyable {
                         this.coordinates.getLongitude() + 2,
                         this.coordinates.getLatitude(),
                         this.coordinates.getHeight() + 4);
-                System.out.println(messages[0]);
+                simulatorLogger.log(messages[0]);
                 break;
             }
             case "RAIN" : {
@@ -31,7 +34,7 @@ public class Baloon extends Aircraft implements Flyable {
                         this.coordinates.getLongitude(),
                         this.coordinates.getLatitude(),
                         this.coordinates.getHeight() - 5);
-                System.out.println(messages[1]);
+                simulatorLogger.log(messages[1]);
                 break;
             }
             case "FOG" : {
@@ -39,7 +42,7 @@ public class Baloon extends Aircraft implements Flyable {
                         this.coordinates.getLongitude(),
                         this.coordinates.getLatitude(),
                         this.coordinates.getHeight() - 3);
-                System.out.println(messages[2]);
+                simulatorLogger.log(messages[2]);
                 break;
             }
             case "SNOW" : {
@@ -47,12 +50,13 @@ public class Baloon extends Aircraft implements Flyable {
                         this.coordinates.getLongitude(),
                         this.coordinates.getLatitude(),
                         this.coordinates.getHeight() - 15);
-                System.out.println(messages[3]);
+                simulatorLogger.log(messages[3]);
                 break;
             }
+            default: throw new WeatherException("Ошибка в названии погоды!");
         }
         if (this.coordinates.getHeight() <= 0) {
-            System.out.println(this + " landing.");
+            simulatorLogger.log(this + " landing.");
             this.weatherTower.unregister(this);
             this.weatherTower = null;
         }

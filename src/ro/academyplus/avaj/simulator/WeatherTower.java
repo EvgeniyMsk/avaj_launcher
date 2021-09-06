@@ -1,4 +1,6 @@
-package com.school21;
+package ro.academyplus.avaj.simulator;
+
+import ro.academyplus.avaj.simulator.exceptions.WeatherException;
 
 public class WeatherTower extends Tower {
 
@@ -6,7 +8,7 @@ public class WeatherTower extends Tower {
         return WeatherProvider.getProvider().getCurrentWeather(coordinates);
     }
 
-    public void changeWeather() {
+    public void changeWeather() throws WeatherException {
         super.conditionsChanged();
     }
 }
